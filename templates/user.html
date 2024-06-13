@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-c6A4AA6HH7G7GT3dyzzUzqf+iWcViX3jzcIR+UO6hsL0piW2w5Kx22T1qrg/nG5f" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>Job Search Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    #banner-img {
+      width: 1478px;
+      height: 390px;
+      image-rendering: crisp-edges; /* Improve image clarity */
+      margin-top:0px;
+    }
+
+    header {
+  background-color: #03093cd5;
+  color: #fff;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header img {
+  height: 50px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content:"space-between"
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.user-icon {
+        margin-left: 1000px;
+    }
+
+    .user-icon a {
+        display: inline-block;
+        padding: 10px;
+    }
+
+    .white-icon {
+        fill: white;
+        width: 24px;
+        height: 24px;
+    }
+    
+    #userDetailsContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    max-height: 100%; /* Set maximum height */
+    background-color: #f9f9f9;
+    z-index: 1000;
+    overflow-y: auto; /* Make it scrollable */
+    display: none;
+    padding: 20px; /* Add padding for better readability */
+}
+
+
+
+#userDetailsContainer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #060967;
+}
+
+.user-details-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-details-list li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.user-details-list li:hover {
+    background-color: #e6e6e6;  /* Slightly darker color on hover */
+}
+
+.detail-label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #060967;
+    flex-basis: 150px;
+    text-align: right;
+}
+
+.detail-value {
+    color: #555;
+    flex-grow: 1;
+}
+
+
+nav ul li {
+  display:inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: "Poor Richard";
+}
+
+
+    main {
+      padding: 20px;
+      text-align: center; /* Align main content to the center */
+    }
+
+    .search-section {
+      margin-bottom: 20px;
+     
+      padding: 30px;
+      border-radius: 30px;
+      text-align: center; /* Align the search box to the center */
+    }
+
+    .search-section h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 34px;
+      font-family: "Brush Script MT";
+    }
+
+    .input-group {
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .input-group label {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .search-form input[type="text"],
+    .search-form select,
+    .search-form button {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .search-form button {
+      background-color: #060967;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .search-form button:hover {
+      background-color: #100694;
+    }
+
+    .results-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      background-color: #041249;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted for responsiveness */
+      gap: 20px; /* Increased gap between grid items */
+    }
+
+    .grid-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: all 0.3s ease; /* Added transition for smoother hover effect */
+    }
+
+    .grid-item:hover {
+      transform: translateY(-5px); /* Lift the grid item slightly on hover */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
+    .job-listing {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    .grid-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px; /* Rounded corners for images */
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-family: "Book Antiqua";
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            <li class="user-icon"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="white-icon"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></a></li>
+        </ul>
+        </nav>
+      </header>
+      <div id="userDetailsContainer">
+        <h2>Welcome, {{ user[1] }}</h2>
+        <ul class="user-details-list">
+            <li><span class="detail-label">Email:</span> <span class="detail-value">{{ user[2] }}</span></li>
+            <li><span class="detail-label">Contact Number:</span> <span class="detail-value">{{ user[3] }}</span></li>
+            <li><span class="detail-label">Address:</span> <span class="detail-value">{{ user[4] }}</span></li>
+            <li><span class="detail-label">City:</span> <span class="detail-value">{{ user[5] }}</span></li>
+            <li><span class="detail-label">Zipcode:</span> <span class="detail-value">{{ user[6] }}</span></li>
+            <li><span class="detail-label">Job Title:</span> <span class="detail-value">{{ user[7] }}</span></li>
+            <li><span class="detail-label">Industry:</span> <span class="detail-value">{{ user[8] }}</span></li>
+            <li><span class="detail-label">Experience:</span> <span class="detail-value">{{ user[9] }}</span></li>
+            <li><span class="detail-label">Education:</span> <span class="detail-value">{{ user[10] }}</span></li>
+            <li><span class="detail-label">Skills:</span> <span class="detail-value">{{ user[11] }}</span></li>
+            <li><span class="detail-label">Employment Type:</span> <span class="detail-value">{{ user[12] }}</span></li>
+            <li><span class="detail-label">Salary Range:</span> <span class="detail-value">{{ user[13] }}</span></li>
+            <li><span class="detail-label">Resume:</span> <span class="detail-value"><a href="{{ url_for('view_resume', filename=user[15]) }}" target="_blank">Download Resume</a></span></li>
+
+            <a href="{{ url_for('modify') }}" class="modify-button">Modify</a>
+          </ul>
+          </div>
+    
+
+            <img id="banner-img" src="{{ url_for('static', filename='bg.jpg') }}" alt="Banner Image">
+
+  <main>
+    <section class="search-section">
+      
+      <form class="search-form" id="searchForm">
+        <div class="input-group">
+            <label for="skillsSelect">Skills:</label>
+            <select id="skillsSelect">
+              <option value="">Select Skills/Domain/Roles</option>
+              <option value="IT Software">IT Software</option>
+              <option value="ITES">ITES</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Accounts">Accounts</option>
+              <option value="Sales">Sales</option>
+              <option value="Production">Production</option>
+              <option value="Executive Assistants">Executive Assistants</option>
+              <option value="Engineering Designs">Engineering Designs</option>
+              <option value="Financial Services">Financial Services</option>
+              <option value="Hotels">Hotels</option>
+              <option value="Architecture">Architecture</option>
+              <option value="HR">HR</option>
+              <option value="Teaching">Teaching</option>
+            </select>
+          </div>
+        <div class="input-group">
+          <label for="experienceSelect">Experience:</label>
+          <select id="experienceSelect">
+            <option value="">Select experience</option>
+            <option value="0-1">0-1 yrs</option>
+            <option value="1-3">1-3 yrs</option>
+            <option value="3-5">3-5 yrs</option>
+            <option value="5+">5+ yrs</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="locationInput">Location:</label>
+          <input type="text" id="locationInput" placeholder="Enter location">
+        </div>
+        <button type="submit" id="searchButton">Search</button>
+      </form>
+    </section>
+
+    <div id="jobsGrid"></div>
+    
+</main>
+<footer>
+  <p>&copy; 2024 Job Quest Portal. All rights reserved.</p>
+</footer>
+
+<script>
+  // Function to toggle User Details Container
+  function toggleUserDetails(event) {
+      event.stopPropagation(); 
+      console.log('Toggling User Details...');
+      
+      var userDetailsContainer = document.getElementById('userDetailsContainer');
+      if (userDetailsContainer.style.display === 'none' || userDetailsContainer.style.display === '') {
+          userDetailsContainer.style.display = 'block';
+          document.addEventListener('click', closeUserDetailsOnClickOutside);
+      } else {
+          userDetailsContainer.style.display = 'none';
+          document.removeEventListener('click', closeUserDetailsOnClickOutside);
+      }
+  }
+
+  // Function to close User Details Container when clicking outside or on user icon
+  function closeUserDetailsOnClickOutside(event) {
+      event.stopPropagation(); 
+      console.log('Closing User Details...');
+      
+      var userDetailsContainer = document.getElementById('userDetailsContainer');
+      var userIcon = document.querySelector('.user-icon a');
+      
+      if (!userDetailsContainer.contains(event.target) && event.target !== userIcon) {
+          userDetailsContainer.style.display = 'none';
+          document.removeEventListener('click', closeUserDetailsOnClickOutside);
+      }
+  }
+
+  // Attach click event to user icon
+  var userIcon = document.querySelector('.user-icon a');
+  if(userIcon) {
+      userIcon.addEventListener('click', toggleUserDetails);
+  } else {
+      console.log('User icon not found');
+  }
+
+   
+</script>
+
+
+
+
+</body>
+</html>

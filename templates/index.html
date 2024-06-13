@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <title>Job Search Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    #banner-img {
+      width: 1478px;
+      height: 390px;
+      image-rendering: crisp-edges; /* Improve image clarity */
+      margin-top:0px;
+    }
+
+    header {
+  background-color: #03093cd5;
+  color: #fff;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header img {
+  height: 50px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content:"space-between"
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display:inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: "Poor Richard";
+}
+
+.nav-right {
+  margin-left: 900px; /* Pushes the "Login" and "Register" links to the right */
+}
+
+
+    main {
+      padding: 20px;
+      text-align: center; /* Align main content to the center */
+    }
+
+    .search-section {
+      margin-bottom: 20px;
+     
+      padding: 30px;
+      border-radius: 30px;
+      text-align: center; /* Align the search box to the center */
+    }
+
+    .search-section h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 34px;
+      font-family: "Brush Script MT";
+    }
+
+    .input-group {
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .input-group label {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .search-form input[type="text"],
+    .search-form select,
+    .search-form button {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .search-form button {
+      background-color: #060967;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .search-form button:hover {
+      background-color: #100694;
+    }
+
+    .results-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      background-color: #041249;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted for responsiveness */
+      gap: 20px; /* Increased gap between grid items */
+    }
+
+    .grid-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: all 0.3s ease; /* Added transition for smoother hover effect */
+    }
+
+    .grid-item:hover {
+      transform: translateY(-5px); /* Lift the grid item slightly on hover */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
+
+    .grid-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px; /* Rounded corners for images */
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-family: "Book Antiqua";
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="nav-right">
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('reg') }}">Register</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+      <img id="banner-img" src="main.jpg" alt="Banner Image">
+
+  <main>
+    <section class="search-section">
+      
+      <form class="search-form" id="searchForm">
+        <div class="input-group">
+            <label for="skillsSelect">Skills:</label>
+            <select id="skillsSelect">
+              <option value="">Select Skills/Domain/Roles</option>
+              <option value="IT Software">IT Software</option>
+              <option value="ITES">ITES</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Accounts">Accounts</option>
+              <option value="Sales">Sales</option>
+              <option value="Production">Production</option>
+              <option value="Executive Assistants">Executive Assistants</option>
+              <option value="Engineering Designs">Engineering Designs</option>
+              <option value="Financial Services">Financial Services</option>
+              <option value="Hotels">Hotels</option>
+              <option value="Architecture">Architecture</option>
+              <option value="HR">HR</option>
+              <option value="Teaching">Teaching</option>
+            </select>
+          </div>
+        <div class="input-group">
+          <label for="experienceSelect">Experience:</label>
+          <select id="experienceSelect">
+            <option value="">Select experience</option>
+            <option value="0-1">0-1 yrs</option>
+            <option value="1-3">1-3 yrs</option>
+            <option value="3-5">3-5 yrs</option>
+            <option value="5+">5+ yrs</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="locationInput">Location:</label>
+          <input type="text" id="locationInput" placeholder="Enter location">
+        </div>
+        <button type="submit" id="searchButton">Search</button>
+      </form>
+    </section>
+    <section class="grid-container">
+      <div class="grid-item">
+        <a href="{{ url_for('static', filename='t1.jpg') }}">
+          <img src="{{ url_for('static', filename='t1.jpg') }}" alt="Image 1">
+        </a>
+          <div class="caption">India Global Forum is seeking to hire professionals from diverse backgrounds and experiences to join our dynamic global team.</div>
+      </div>
+      <div class="grid-item">
+        <a href="{{ url_for('static', filename='t2.jpg') }}">
+          <img src="{{ url_for('static', filename='t2.jpg') }}" alt="Image 2">
+        </a>
+          <div class="caption">Airtel is hiring in India and from engineers to store managers, the candidates can apply for desired posts at airtel.taleo.net</div>
+      </div>
+      <div class="grid-item">
+        <a href="{{ url_for('static', filename='t3.jpg') }}">
+          <img src="{{ url_for('static', filename='t3.jpg') }}" alt="Image 3">
+        </a>
+          <div class="caption">India Global Forum is seeking to hire professionals from diverse backgrounds and experiences to join our dynamic global team.</div>
+      </div>
+      <div class="grid-item">
+        <a href="{{ url_for('static', filename='t6.jpg') }}">
+          <img src="{{ url_for('static', filename='t6.jpg') }}" alt="Image 4">
+        </a>
+          <div class="caption">Reliance Industries Limited is hiring! Join our esteemed team and become a part of our legacy of innovation and excellence. </div>
+      </div>
+      <div class="grid-item">
+        <a href="{{ url_for('static', filename='t5.jpg') }}">
+          <img src="{{ url_for('static', filename='t5.jpg') }}" alt="Image 5">
+        </a>
+          <div class="caption">Amazon India hiring over 1,000 people in a push to R&D and AI</div>
+      </div>
+      <div class="grid-item">
+        <a href="{{ url_for('static', filename='t4.jpg') }}">
+          <img src="{{ url_for('static', filename='t4.jpg') }}" alt="Image 6">
+        </a>
+          <div class="caption">India Global Forum is seeking to hire professionals from diverse backgrounds and experiences to join our dynamic global team.</div>
+      </div>
+  </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Job Search Portal. All rights reserved.</p>
+  </footer>
+
+  <script>
+   function toggleHover(element) {
+    element.classList.toggle('hovered');
+}
+  </script>
+</body>
+</html>

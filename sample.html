@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+  <style>
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    fieldset {
+      margin-bottom: 10px;
+    }
+
+    legend {
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Contact Us</h2>
+    <form id="contactForm" onsubmit="validateForm()">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <fieldset>
+        <legend>Gender:</legend>
+        <label><input type="radio" name="gender" value="male"> Male</label>
+        <label><input type="radio" name="gender" value="female"> Female</label>
+        <label><input type="radio" name="gender" value="other"> Other</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Languages:</legend>
+        <label><input type="checkbox" name="language" value="english"> English</label>
+        <label><input type="checkbox" name="language" value="tamil"> Tamil</label>
+        <label><input type="checkbox" name="language" value="hindi"> Hindi</label>
+      </fieldset>
+
+      <label for="country">Country:</label>
+      <select id="country" name="country">
+        <option value="">Select a country</option>
+        <option value="india">India</option>
+        <option value="usa">USA</option>
+        <option value="uk">UK</option>
+         <option value="australia">Australia</option>
+      </select>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var message = document.getElementById('message').value.trim();
+      var gender = document.querySelector('input[name="gender"]:checked');
+      var languages = document.querySelectorAll('input[name="language"]:checked');
+      var country = document.getElementById('country').value.trim();
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+      if (name === '') {
+        alert('Please enter your name.');
+        return false;
+      }
+  
+      if (email === '') {
+        alert('Please enter your email address.');
+        return false;
+      }
+  
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return false;
+      }
+  
+      var domain = email.split('@')[1];
+      if (!domain.includes('.') || domain.split('.').length < 2) {
+        alert('Please enter a valid email address with a proper domain.');
+        return false;
+      }
+  
+      if (message === '') {
+        alert('Please enter your message.');
+        return false;
+      }
+  
+      if (!gender) {
+        alert('Please select your gender.');
+        return false;
+      }
+  
+      if (languages.length === 0) {
+        alert('Please select at least one language.');
+        return false;
+      }
+  
+      if (country === '') {
+        alert('Please select your country.');
+        return false;
+      }
+  
+      return true;
+    }
+  </script>
+  
+</body>
+</html>

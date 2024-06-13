@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .register-container {
+            width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: Poor Richard;
+        }
+
+        .input-box i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+            color: #888;
+        }
+
+        .submit {
+            width: 30%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit:hover {
+            background-color: #0056b3;
+        }
+
+        label {
+            font-weight: bold;
+            font-family: Poor Richard;
+        }
+
+        select {
+            width: 100%;
+            height: 40px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .required {
+            color: red;
+            margin-left: 5px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register-container">
+        <header>Create Your JobQuest Profile</header>
+        <h5>Search & apply to jobs from India's No.1 Job Site</h5>
+        <form action="{{ url_for('register') }}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <div class="input-box">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" class="input-field" placeholder="Full Name" name="fullname" required>
+                <i class="bx bx-user"></i>
+            </div>
+
+            <div class="input-box">
+                <label>Email ID <span class="required">*</span></label>
+                <input type="email" class="input-field" placeholder="Email" name="email" required>
+                <i class="bx bx-envelope"></i>
+            </div>
+
+            <div class="input-box">
+                <label>Password <span class="required">*</span></label>
+                <input type="password" class="input-field" placeholder="Minimum 6 characters" name="password" required minlength="6">
+                <i class="bx bx-lock-alt"></i>
+            </div>
+
+            <div class="input-box">
+                <label>Mobile Number <span class="required">*</span></label>
+                <input type="tel" class="input-field" placeholder="Contact Number" name="contact_number" pattern="[0-9]{10}">
+                <i class="bx bx-phone"></i>
+            </div>
+
+            <div class="input-box">
+                <label>City <span class="required">*</span></label>
+                <input type="text" class="input-field" placeholder="City" name="city" required>
+                <i class="bx bx-city"></i>
+            </div>
+
+            <div class="input-box">
+                <label>Job Title <span class="required">*</span></label>
+                <input type="text" class="input-field" placeholder="Job Title" name="job_title" required>
+                <i class="bx bx-briefcase"></i>
+            </div>
+
+            <div class="input-box">
+                <label>Years Of Experience <span class="required">*</span></label>
+                <input type="text" class="input-field" placeholder="Years of Experience" name="experience" required>
+                <i class="bx bx-time"></i>
+            </div>
+
+            <div class="input-box">
+                <label>Skills <span class="required">*</span></label>
+                <input type="text" class="input-field" placeholder="Skills" name="skills" required>
+                <i class="bx bx-code"></i>
+            </div>
+
+            <div class="input-box">
+                <label for="employment_type">Employment Type:</label>
+                <select id="employment_type" name="employment_type">
+                    <option value="full-time">Full-Time</option>
+                    <option value="part-time">Part-Time</option>
+                    <option value="contract">Contract</option>
+                </select>
+            </div>
+
+            <div class="input-box">
+                <label>Salary</label>
+                <input type="text" class="input-field" placeholder="Salary Range" name="salary_range">
+                <i class="bx bx-dollar"></i>
+            </div>
+
+            <div class="input-box">
+                <label for="resume">Upload Resume <span class="required">*</span></label>
+                <input type="file" class="input-field" id="resume" name="resume" accept=".pdf" required>
+                <i class="bx bx-file"></i>
+                <small>Accepted format: .pdf</small>
+            </div>
+
+            <button type="submit" class="submit">Register</button>
+
+            <div id="error-message" class="error-message"></div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+    const fullname = document.forms["registerForm"]["fullname"].value;
+    const email = document.forms["registerForm"]["email"].value;
+    const password = document.forms["registerForm"]["password"].value;
+    const contact_number = document.forms["registerForm"]["contact_number"].value;
+    const city = document.forms["registerForm"]["city"].value;
+    const job_title = document.forms["registerForm"]["job_title"].value;
+    const experience = document.forms["registerForm"]["experience"].value;
+    const skills = document.forms["registerForm"]["skills"].value;
+    const resume = document.forms["registerForm"]["resume"].files[0];
+
+    if (fullname == "" || email == "" || password == "" || contact_number == "" || city == "" || job_title == "" || experience == "" || skills == "" || !resume) {
+        document.getElementById("error-message").innerHTML = "All fields with * are required!";
+        return false;
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById("error-message").innerHTML = "Invalid email format!";
+        return false;
+    }
+
+    const contactRegex = /^[0-9]{10}$/;
+    if (contact_number && !contactRegex.test(contact_number)) {
+        document.getElementById("error-message").innerHTML = "Invalid contact number!";
+        return false;
+    }
+
+    const experienceRegex = /^[0-9]+$/;
+    if (!experienceRegex.test(experience)) {
+        document.getElementById("error-message").innerHTML = "Experience should be a number!";
+        return false;
+    }
+
+    return true;
+}
+
+function clearErrorMessage() {
+    document.getElementById("error-message").innerHTML = "";
+}
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGPA Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  h1 {
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  #subjects div {
+    margin-bottom: 20px;
+  }
+  #cgpa {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>CGPA Calculator</h1>
+    <label for="numSubjects">Number of Subjects:</label>
+    <input type="number" id="numSubjects">
+    <button onclick="addSubjects()">Submit</button>
+    <div id="subjects"></div>
+    <label for="prevCGPA">Previous Semester CGPA:</label>
+    <input type="number" id="prevCGPA">
+    <label for="semesterNumber">Semester Number:</label>
+    <input type="number" id="semesterNumber">
+    <button onclick="calculateCGPA()">Calculate CGPA</button>
+    <div id="cgpa"></div>
+  </div>
+
+  <script>
+    function addSubjects() {
+      var numSubjects = parseInt(document.getElementById('numSubjects').value);
+      var subjectsDiv = document.getElementById('subjects');
+      subjectsDiv.innerHTML = ''; // Clear previous inputs
+
+      for (var i = 1; i <= numSubjects; i++) {
+        subjectsDiv.innerHTML += `
+          <div>
+            <label for="credit${i}">Credit for Subject ${i}:</label>
+            <input type="number" id="credit${i}" min="1">
+            <label for="grade${i}">Grade for Subject ${i}:</label>
+            <select id="grade${i}">
+              <option value="10">O</option>
+              <option value="9">A+</option>
+              <option value="8">A</option>
+              <option value="7">B+</option>
+              <option value="6">B</option>
+              <option value="5">C</option>
+              <option value="0">U</option>
+            </select>
+          </div>`;
+      }
+    }
+
+    function calculateCGPA() {
+  var numSubjects = parseInt(document.getElementById('numSubjects').value);
+  var totalGradePoints = 0;
+  var totalCredits = 0;
+  var hasU = false;
+
+  for (var i = 1; i <= numSubjects; i++) {
+    var credit = parseInt(document.getElementById(`credit${i}`).value);
+    var grade = parseInt(document.getElementById(`grade${i}`).value);
+
+    if (grade === 0) { // Check for grade "U"
+      hasU = true;
+      break; // Exit loop if "U" grade is found
+    }
+
+    totalGradePoints += credit * grade;
+    totalCredits += credit;
+  }
+  
+  
+  if (!hasU) {
+    
+    var cgpa = totalGradePoints / totalCredits;
+    cgpa = cgpa.toFixed(2);
+    
+    var prevCGPA = parseFloat(document.getElementById('prevCGPA').value);
+    var semesterNumber = parseInt(document.getElementById('semesterNumber').value);
+    var newCGPA = (parseFloat(cgpa) + prevCGPA) / (semesterNumber - 1);
+
+    newCGPA = parseFloat(newCGPA.toFixed(2)) + 0.03; // Add 0.03 to newCGPA
+    newCGPA = newCGPA.toFixed(2);+
+    document.getElementById('cgpa').innerText = `Your CGPA is: ${newCGPA}`;
+
+    } 
+    else {
+    document.getElementById('cgpa').innerText = "It cannot calculate cgpa because there is a grade U";
+    }
+}
+
+  </script>
+</body>
+</html>

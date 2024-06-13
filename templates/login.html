@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal Login Page</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+     body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background:url('regbg.jpg');
+    background-size: contain; /* Adjust the background size to contain the image */
+    background-repeat:no-repeat; /* Prevent the background image from repeating */
+    background-position: center;
+     }
+
+
+.form-box {
+    width: 300px;
+    margin: 100px auto;
+    background-color: linear-gradient(to bottom, #59ba9a, #4bb29d);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 6px solid #000000;
+   }
+
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    color: #888;
+}
+
+.input-field {
+    width: calc(100% - 40px);
+    height: 40px;
+    padding: 0 10px;
+    padding-left: 40px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.submit {
+    width: 40%;
+    padding: 10px;
+    background-color: #0a0a0a;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+        .submit:hover {
+            background-color: #0056b3;
+        }
+
+        h1, h2 {
+            color: #1e1f1f !important;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+   <div class="form-box">
+        <h1>Welcome to JobQuest</h1>
+        <h2>Please sign in to continue</h2>
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="input-box">
+                <i class="bx bx-user"></i>
+                <input type="text" class="input-field" placeholder="Email" name="email">
+                
+            </div>
+            <div class="input-box">
+                <input type="password" class="input-field" placeholder="Password" name="password">
+                <i class="bx bx-lock-alt"></i>
+            </div>
+            <div class="input-box">
+                <input type="submit" class="submit" value="Sign In">
+            </div>
+        </form>
+   </div>         
+</body>
+</html>

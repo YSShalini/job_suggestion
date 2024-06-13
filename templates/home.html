@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Search</title>
+</head>
+<body>
+    <h1>Job Search</h1>
+    <form id="searchForm" action="/search" method="GET">
+        <label for="skills">Skills:</label>
+        <input type="text" id="skills" name="skills" required><br><br>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br><br>
+        <label for="experience">Experience:</label>
+        <input type="text" id="experience" name="experience" required><br><br>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let skills = document.getElementById('skills').value;
+            let location = document.getElementById('location').value;
+            let experience = document.getElementById('experience').value;
+            fetch(`/search?skills=${skills}&location=${location}&experience=${experience}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                let resultsHtml = '';
+                data.forEach(job => {
+                    resultsHtml += `
+                        <div>
+                            <h2>${job.company_name}</h2>
+                            <p><strong>Title:</strong> ${job.title}</p>
+                            <p><strong>Description:</strong> ${job.description}</p>
+                            <p><strong>Location:</strong> ${job.location}</p>
+                            <p><strong>Requirements:</strong> ${job.requirements}</p>
+                        </div>
+                    `;
+                });
+                document.getElementById('results').innerHTML = resultsHtml;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
